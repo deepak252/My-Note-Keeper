@@ -1,0 +1,19 @@
+#Sidebar-Tile{
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 20px;
+    // background-color: #162242;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    margin: 8px;
+    border-radius: 6px;
+    font-size: 18px;
+    border: none;
+    width: 90%;
+    color: white;
+}
+
+#Sidebar-Tile:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.3);
+}
