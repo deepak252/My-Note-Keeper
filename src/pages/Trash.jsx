@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Home.scss"
+import "./Trash.scss"
 import { NoteCard } from '../components/noteCard/NoteCard.jsx';
 import FirestoreService from '../services/FirestoreService';
 import { useEffect, useState} from 'react';
@@ -7,26 +7,15 @@ import { CreateNoteModal } from '../components/createNoteModal/CreateNoteModal';
 import Note from '../models/Note';
 import { FaPlus } from 'react-icons/fa';
 
-// import { Timestamp } from '@firebase/firestore';
 
-
-const Home = () => {
+const Trash = () => {
 
     const [notes, setNotes] = useState([]);
     const [createNoteModalVisibility, setCreateNoteModalVisibility] = useState(false);
 
     useEffect(()=>{
-        // setNotes([
-        //     Note.fromJson({
-        //         description: "adfdaf",
-        //         id: "XY1m3Cx2789zMnWhaQ0h",
-        //         timeStamp: Timestamp.fromDate(new Date()),
-        //         title: "Hello 2"
 
-        //     })
-        // ]);
-
-        const unsubscribe = FirestoreService.streamNotes((querySnapshot)=>{
+        const unsubscribe = FirestoreService.streamDeletedNotes((querySnapshot)=>{
             querySnapshot.forEach((doc)=>{
                 console.log(doc.data());
             })     
@@ -39,16 +28,12 @@ const Home = () => {
             console.log("streamNotes error : ", error);
         });
 
-        // const tempNotes = await FirestoreService.fetchNotes();
-        // console.log("fetched notes : ",tempNotes);
-        // setNotes(tempNotes);
-        
         return unsubscribe;
     },[])
     
     return (
-        <div id="Home">
-            <h1 className="Heading">Your Notes</h1>
+        <div id="Trash">
+            <h1 className="Heading">Deleted Notes</h1>
             {
                 createNoteModalVisibility&&
                 <CreateNoteModal setModalVisibility={setCreateNoteModalVisibility}/>
@@ -68,4 +53,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default Trash;

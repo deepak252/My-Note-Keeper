@@ -1,25 +1,32 @@
 import React from 'react'
 import "./Sidebar.scss";
 import { SidebarTile } from './SidebarTile';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { toggleSidebarAction } from '../../state/actionCreators/toggleSidebarAction';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { useState } from 'react';
-export const Sidebar = () => {
+import { useEffect } from 'react';
+import {Link, useLocation} from 'react-router-dom';
+
+const Sidebar = () => {
+    const dispatch = useDispatch();
     const screenWidth = useSelector(state=>state.screenWidth);
-    const [expandSidebar, setExpandSidebar] =useState(false);
-    
+    const expandSidebar = useSelector(state=>state.sidebarToggle);
+    const location = useLocation(); // current url 
+
     const toggleSidebarHandler =()=>{
-        setExpandSidebar(!expandSidebar);
+        dispatch(toggleSidebarAction(!expandSidebar));
         !expandSidebar 
         ? document.body.style.overflow = "hidden"
         : document.body.style.overflow = "auto";
     }
 
+    useEffect(()=>{
+        dispatch(toggleSidebarAction(false));
+    },[])
+
     return (
         <>
-            <div onClick={()=>{
-                console.log("hello");
-            }} className={"Nav-Sidebar "+ (expandSidebar && screenWidth<769 ? "Change-BG" : "")}>
+            <div  className={"Nav-Sidebar "+ (expandSidebar && screenWidth<769 ? "Change-BG" : "")}>
                 <div className={"Nav " + (expandSidebar || screenWidth>=769  ? "Hide-Nav" : "Show-Nav")} >
                     <button className="Btn-Menu" onClick={toggleSidebarHandler}>
                         <FaBars />
@@ -29,9 +36,9 @@ export const Sidebar = () => {
                 <div className={"Sidebar " + (expandSidebar || screenWidth>=769  ? " Show-Sidebar " : " Hide-Sidebar ")}>
                     <h1>My Note Book</h1>
                     <div className="Sidebar-Options">
-                        <SidebarTile title= "Home"/>
-                        <SidebarTile title= "Bookmarks"/>
-                        <SidebarTile title= "Trash"/>
+                        <Link to="/"><SidebarTile isSelected = {location.pathname==="/"} title= "Home"/></Link>
+                        <Link to="/bookmarks"><SidebarTile isSelected = {location.pathname==="/bookmarks"} title= "Bookmarks"/></Link>
+                        <Link to="/trash"><SidebarTile isSelected = {location.pathname==="/trash"} title= "Trash"/></Link>
                         <SidebarTile title= "Profile"/>
                     </div>
                     <p id="Copyright">@Copyright {new Date().getFullYear()}</p>
@@ -47,3 +54,5 @@ export const Sidebar = () => {
         </>
     )
 }
+
+export default Sidebar;

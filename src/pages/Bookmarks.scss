@@ -1,0 +1,91 @@
+#Bookmarks{
+    // margin-left: calc(250px + 20px);
+    margin-right: 20px;
+    margin-left: 20px;
+    // box-sizing: border-box;
+    min-height: 100vh;
+    h1{
+        margin: 0;
+        padding: 20px 0;
+    }
+
+    .Notes-Container{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-items: center;
+    }
+
+    #Btn-Add-Note{
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        background-color : var(--sidebarColorLight);
+        border: none;
+        color: white;
+        font-weight: bold;
+        font-size: 30px;
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        z-index: 5;
+        box-shadow: 2px 2px 12px 2px gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition-duration: 100ms;
+
+        &:hover , &:active{
+            cursor: pointer;
+            background-color: rgb(85, 91, 214);
+            transform: scale(1.05);
+            transition-duration: 100ms;
+        }
+        // &:active{
+        //     background-color: red;
+        // }
+
+    }
+   
+}
+@media screen and (min-width:481px)  and (max-width:768px) {
+    #Bookmarks{
+        padding-top: 100px;
+        .Notes-Container{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media screen and (min-width:769px)  and (max-width:1024px) {
+    #Bookmarks{
+        margin-left: calc(250px + 20px);
+
+        .Notes-Container{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+}
+
+// @media screen and (min-width:481px)  and (max-width:768px) {
+//     #Note-Card{
+//         width: 40%;
+//     }
+// }
+
+// @media screen and (min-width:769px)  and (max-width:1024px) {
+    
+// }
+
+@media screen and (min-width:1025px)  {
+    #Bookmarks{
+        margin-left: calc(250px + 20px);
+
+        .Notes-Container{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}

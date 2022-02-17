@@ -55,13 +55,13 @@
         &.Show-Sidebar{
             max-width: 80vw;
             visibility: visible;
-            transition: all 0.2s ease-in;
+            transition: width 0.2s ease-in;
             
         }
         &.Hide-Sidebar{
             width: 0;
             visibility: hidden;
-            transition: all 0.2s ease-in;
+            transition: width 0.2s ease-in;
         }
 
         h1{

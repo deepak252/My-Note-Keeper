@@ -6,7 +6,7 @@ import FirestoreService from '../../services/FirestoreService';
 export const NoteCard = ({note}) => {
     return (
         <div id="Note-Card" onClick={()=>{}}>
-            <h3 id="Note-Title">{note?.title} {note?.title}  {note?.title} {note?.title} </h3>
+            <h3 id="Note-Title">{note?.title} </h3>
             <div className="Dropdown">
                 < FaEllipsisV id="Dropdown-Icon"  size="18"/>
                 <div id="Dropdown-Options">
