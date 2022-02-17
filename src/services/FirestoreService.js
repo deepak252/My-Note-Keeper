@@ -4,7 +4,7 @@ import {
     setDoc, addDoc, updateDoc, deleteDoc, 
     getDocs, onSnapshot,
     Timestamp,
-    query, orderBy,
+    query, orderBy,where,
 
 } from "firebase/firestore";
 import Note from "../models/Note";
@@ -24,7 +24,9 @@ class FirestoreService{
             note = {
                 ...note,
                 id: docRef.id,
-                timeStamp : Timestamp.fromDate(new Date())
+                timeStamp : Timestamp.fromDate(new Date()),
+                bookmarked : false,
+                deleted : false
             };
             console.log(note);
             setDoc(docRef,note);
@@ -64,9 +66,65 @@ class FirestoreService{
     static streamNotes=async(callbackFunxn,onError)=>{
         console.log("sream");
         const notesCollectionRef = collection(db,"notes");
-        const q=query(notesCollectionRef, orderBy("timeStamp","desc"));
+        var q=query(notesCollectionRef,orderBy("deleted"),orderBy("timeStamp","desc"),where("deleted", "!=", true), );
+        // var q=query(notesCollectionRef,orderBy("timeStamp","desc"),where("deleted", "==", true), );
+        // var q=query(notesCollectionRef,orderBy("timeStamp","desc") );
+
         const unsubsribe = onSnapshot(q,callbackFunxn, onError)
         return unsubsribe;
+    }
+
+    static streamBookmarkedNotes=async(callbackFunxn,onError)=>{
+        console.log("sream");
+        const notesCollectionRef = collection(db,"notes");
+        var q=query(notesCollectionRef,orderBy("bookmarked"),orderBy("timeStamp","desc"),where("bookmarked", "==", "true"), );
+        const unsubsribe = onSnapshot(q,callbackFunxn, onError)
+        return unsubsribe;
+    }
+    static streamDeletedNotes=async(callbackFunxn,onError)=>{
+        console.log("sream");
+        const notesCollectionRef = collection(db,"notes");
+        var q=query(notesCollectionRef,orderBy("deleted"),orderBy("timeStamp","desc"),where("deleted", "==", "true"), );
+        const unsubsribe = onSnapshot(q,callbackFunxn, onError)
+        return unsubsribe;
+    }
+
+    static deleteNote=async(noteId)=>{
+        console.log("delete Note");
+        try{
+            const noteDocRef = doc(db,"notes",noteId);
+            await deleteDoc(noteDocRef);
+            console.log("Note deleted successfully");
+        }catch(e){
+            console.log("Delete Note error : ",e);
+        }
+    }
+
+    static markNoteAsBookmark=async({isBookmarked,noteId})=>{
+        console.log("adding note to bookmark...");
+        try{
+            const noteDocRef = doc(db,"notes",noteId);
+            await updateDoc(noteDocRef,{
+                bookmarked : false,
+                deleted: false
+            })
+            console.log("Note marked as bookmarked successfully");
+        }catch(e){
+            console.log("markNoteAsBookmark error : ",e);
+        }
+    }
+
+    static markNoteAsDelete = async({isDeleted,noteId})=>{
+        console.log("adding note to delete...");
+        try{
+            const noteDocRef = doc(db,"notes",noteId);
+            await updateDoc(noteDocRef,{
+                deleted : isDeleted
+            })
+            console.log("Note marked as deleted successfully");
+        }catch(e){
+            console.log("markNoteAsDelete error : ",e);
+        }
     }
 
 }

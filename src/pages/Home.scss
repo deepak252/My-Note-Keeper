@@ -1,6 +1,7 @@
 #Home{
-    margin-left: calc(250px + 20px);
+    // margin-left: calc(250px + 20px);
     margin-right: 20px;
+    margin-left: 20px;
     // box-sizing: border-box;
     min-height: 100vh;
     h1{
@@ -9,11 +10,11 @@
     }
 
     .Notes-Container{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-items:flex-start;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-items: center;
     }
+
     #Btn-Add-Note{
         height: 80px;
         width: 80px;
@@ -22,16 +23,69 @@
         border: none;
         color: white;
         font-weight: bold;
-        font-size: 45px;
+        font-size: 30px;
         position: fixed;
         right: 12px;
         bottom: 12px;
+        z-index: 5;
+        box-shadow: 2px 2px 12px 2px gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition-duration: 100ms;
 
-        &:hover{
+        &:hover , &:active{
             cursor: pointer;
             background-color: rgb(85, 91, 214);
+            transform: scale(1.05);
+            transition-duration: 100ms;
         }
+        // &:active{
+        //     background-color: red;
+        // }
 
     }
    
+}
+@media screen and (min-width:481px)  and (max-width:768px) {
+    #Home{
+        padding-top: 100px;
+        .Notes-Container{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media screen and (min-width:769px)  and (max-width:1024px) {
+    #Home{
+        margin-left: calc(250px + 20px);
+
+        .Notes-Container{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+}
+
+// @media screen and (min-width:481px)  and (max-width:768px) {
+//     #Note-Card{
+//         width: 40%;
+//     }
+// }
+
+// @media screen and (min-width:769px)  and (max-width:1024px) {
+    
+// }
+
+@media screen and (min-width:1025px)  {
+    #Home{
+        margin-left: calc(250px + 20px);
+
+        .Notes-Container{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
 }

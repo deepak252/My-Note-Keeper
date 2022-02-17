@@ -1,8 +1,10 @@
 class Note{
-    constructor({id,title,description,timeStamp}){
+    constructor({id,title,description,timeStamp, bookmarked, deleted}){
         this.id = id;
         this.title=title;
         this.description=description;
+        this.bookmarked=bookmarked;
+        this.deleted=deleted;
         this.timeStamp=timeStamp;
     }
 
@@ -11,6 +13,8 @@ class Note{
             id: json.id,
             title: json.title,
             description: json.description,
+            bookmarked: json.bookmarked,
+            deleted: json.deleted,
             timeStamp: json.timeStamp
         })
     }
@@ -20,6 +24,8 @@ class Note{
             'id' : this.id,
             'title': this.title,
             'description': this.description,
+            'bookmarked': this.bookmarked,
+            'deleted': this.deleted,
             'timeStamp': this.timeStamp
         }
 

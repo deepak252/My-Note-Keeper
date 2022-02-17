@@ -19,3 +19,30 @@
     margin-bottom: 0;
 }
 
+/* 
+Media Queries : 
+
+(mobile )
+width <= 480px {
+    1 note per row
+    no sidebar
+}
+
+(mobile, tablets )
+481px <= width <=768px { 
+    2 note per row
+    no sidebar
+}
+
+769 <= width <= 1024px {
+    2 note per row
+    show sidebar
+}
+
+(mobile, tablets )
+1025px <= width{
+    show Sidebar
+}
+
+*/
+

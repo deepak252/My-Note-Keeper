@@ -1,23 +1,24 @@
 import React from 'react';
 import "./NoteCard.scss";
-import { FaEllipsisV, FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import { FaEllipsisV, FaBookmark } from 'react-icons/fa';
+import FirestoreService from '../../services/FirestoreService';
 
-export const NoteCard = (props) => {
+export const NoteCard = ({note}) => {
     return (
         <div id="Note-Card" onClick={()=>{}}>
-            <h3 id="Note-Title">{props.note?.title} {props.note?.title}  {props.note?.title} {props.note?.title} </h3>
+            <h3 id="Note-Title">{note?.title} {note?.title}  {note?.title} {note?.title} </h3>
             <div className="Dropdown">
                 < FaEllipsisV id="Dropdown-Icon"  size="18"/>
                 <div id="Dropdown-Options">
-                    <p className="Dropdown-Item">Edit</p>
-                    <p className="Dropdown-Item">Bookmark</p>
-                    <p className="Dropdown-Item">Delete</p>
+                    <button  className="Dropdown-Btn">Edit</button>
+                    <button onClick={()=>FirestoreService.markNoteAsBookmark({noteId: note?.id, isBookmarked : true})} className="Dropdown-Btn">Bookmark</button>
+                    <button onClick={()=>FirestoreService.markNoteAsDelete({noteId: note?.id, isDeleted : true})} className="Dropdown-Btn">Delete</button>
                 </div>
             </div>
             <p id="Note-Description">
-                {props.note?.description}
+                {note?.description}
             </p>
-            <p id="Note-Created-Time">{!props.note?.bookmarked?< FaBookmark id="Bookmark-Icon" color="rgb(162, 162, 0)" size="16"/>:<div></div>} {props.note?.timeStamp.toDate().toDateString()}, {props.note?.timeStamp.toDate().toLocaleTimeString()}</p>
+            <p id="Note-Created-Time"> {note?.timeStamp.toDate().toDateString()}, {note?.timeStamp.toDate().toLocaleTimeString()} {note?.bookmarked?< FaBookmark id="Bookmark-Icon" />:<span />}</p>
         </div>
     )
 }

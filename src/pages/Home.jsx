@@ -5,13 +5,15 @@ import FirestoreService from '../services/FirestoreService';
 import { useEffect, useState} from 'react';
 import { CreateNoteModal } from '../components/createNoteModal/CreateNoteModal';
 import Note from '../models/Note';
+import { FaPlus } from 'react-icons/fa';
+
 
 export const Home = () => {
 
     const [notes, setNotes] = useState([]);
     const [createNoteModalVisibility, setCreateNoteModalVisibility] = useState(false);
 
-    useEffect(async ()=>{
+    useEffect(()=>{
         // setNotes([
         //     Note.fromJson({
         //         description: "adfdaf",
@@ -33,14 +35,12 @@ export const Home = () => {
         },
         (error)=>{
             console.log("streamNotes error : ", error);
-        }
-        );
-
+        });
 
         // const tempNotes = await FirestoreService.fetchNotes();
         // console.log("fetched notes : ",tempNotes);
         // setNotes(tempNotes);
-        // return unsubscribe;
+        return unsubscribe;
     },[])
     
     return (
@@ -59,7 +59,7 @@ export const Home = () => {
                 }
             </div>
             <button id="Btn-Add-Note" onClick={()=>{setCreateNoteModalVisibility(true)}}>
-                +
+                <FaPlus />
             </button>
         </div>
     )
