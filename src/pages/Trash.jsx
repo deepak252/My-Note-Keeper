@@ -1,11 +1,11 @@
 import React from 'react';
 import "./Trash.scss"
-import { NoteCard } from '../components/noteCard/NoteCard.jsx';
 import FirestoreService from '../services/firestoreService';
 import { useEffect, useState} from 'react';
 import { CreateNoteModal } from '../components/createNoteModal/CreateNoteModal';
 import Note from '../models/Note';
 import { FaPlus } from 'react-icons/fa';
+import { NoteCardTrash } from '../components/noteCard/NoteCardTrash';
 
 
 const Trash = () => {
@@ -41,7 +41,7 @@ const Trash = () => {
             <div className="Notes-Container">
                 {
                     notes.map((note)=>{
-                        return <NoteCard note={note} key={note.id} />
+                        return <NoteCardTrash note={note} key={note.id} />
                         
                     })
                 }

@@ -1,18 +1,16 @@
 import React from 'react';
-import "./NoteCard.scss";
+import "./NoteCardBookmark.scss";
 import { FaEllipsisV, FaBookmark } from 'react-icons/fa';
 import FirestoreService from '../../services/firestoreService';
 
-export const NoteCard = ({note}) => {
+export const NoteCardBookmark = ({note}) => {
     return (
-        <div id="Note-Card" onClick={()=>{}}>
+        <div id="Note-Card-Bookmark" onClick={()=>{}}>
             <h3 id="Note-Title">{note?.title} </h3>
             <div className="Dropdown">
                 < FaEllipsisV id="Dropdown-Icon"  size="18"/>
                 <div id="Dropdown-Options">
-                    <button  className="Dropdown-Btn">Edit</button>
-                    <button onClick={()=>FirestoreService.markNoteAsBookmark({noteId: note?.id, isBookmarked : true})} className="Dropdown-Btn">Bookmark</button>
-                    <button onClick={()=>FirestoreService.markNoteAsDelete({noteId: note?.id, isDeleted : true})} className="Dropdown-Btn">Delete</button>
+                    <button onClick={()=>FirestoreService.bookmarkNote({noteId: note?.id, isBookmarked : false})}  className="Dropdown-Btn">Remove From Bookmark</button>
                 </div>
             </div>
             <p id="Note-Description">

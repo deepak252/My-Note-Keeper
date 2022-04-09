@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Home.scss"
-import { NoteCard } from '../components/noteCard/NoteCard.jsx';
+import { NoteCardHome } from '../components/noteCard/NoteCardHome.jsx';
 import FirestoreService from '../services/firestoreService';
 import { useEffect, useState} from 'react';
 import { CreateNoteModal } from '../components/createNoteModal/CreateNoteModal';
@@ -18,6 +18,7 @@ const Home = () => {
 
     const [notes, setNotes] = useState([]);
     const [createNoteModalVisibility, setCreateNoteModalVisibility] = useState(false);
+    // const [editNoteModalVisibility, setEditNoteModalVisibility] = useState(false);
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({});
     const [user,loadingAuthState, error] = useAuthState(auth);
@@ -50,6 +51,7 @@ const Home = () => {
         //     })
         // ]);
 
+        // Stream of Notes
         const unsubscribe = FirestoreService.streamNotes((querySnapshot)=>{
             querySnapshot.forEach((doc)=>{
                 console.log(doc.data());
@@ -80,11 +82,11 @@ const Home = () => {
                 createNoteModalVisibility&&
                 <CreateNoteModal setModalVisibility={setCreateNoteModalVisibility}/>
             }
+           
             <div className="Notes-Container">
                 {
                     notes.map((note)=>{
-                        return <NoteCard note={note} key={note.id} />
-                        
+                        return <NoteCardHome note={note} key={note.id} />
                     })
                 }
             </div>

@@ -1,0 +1,125 @@
+#Note-Card-Trash{
+    background-color: var(--noteCardColor);
+    border-radius: 6px;
+    box-sizing: border-box;
+    box-shadow: 2px 4px 6px rgb(206, 205, 205);
+    hyphens: auto;
+    letter-spacing: 1px;
+    margin: 20px;
+    min-height: 130px;
+    overflow-wrap: break-word;
+    position: relative;
+    padding: 0 10px 20px 10px;
+    transition-duration: 100ms;
+    word-spacing: 2px;
+    width: 92%;
+    
+
+    .Dropdown{
+        position: absolute;
+        z-index: 2;
+        text-align: right;
+        right:5px;
+        top: 5px;
+        #Dropdown-Icon{
+            right:5px;
+            top: 5px;
+            padding: 5px;
+            border-radius: 50%;
+           
+            &:hover{
+                cursor: pointer;
+                background-color: rgba($color: #000000, $alpha: 0.2);
+            }
+        }
+        #Dropdown-Options{
+            background-color: white;
+            display: none;
+            border-radius: 1px;
+            box-shadow: 2px 2px 12px 1px rgb(180, 179, 179);
+            text-align: left;
+            .Dropdown-Btn{
+                margin: 0;
+                padding: 10px 20px;
+                border: none;
+                background-color: white;
+                text-align: left;
+                &:hover{
+                    cursor: pointer;
+                    background-color: rgba($color: #000000, $alpha: 0.1);
+                }
+            }
+        }
+        &:hover{
+            cursor: pointer;
+            & #Dropdown-Options{
+                right:5px;
+                top: 5px;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            & #Dropdown-Icon{
+                background-color: rgba($color: #000000, $alpha: 0.2);
+            }
+            
+        }
+    }
+
+
+
+    #Note-Title{
+        margin-right: 20px;
+
+    }
+    #Note-Description{
+        color: rgb(31, 31, 31);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 5; /* number of lines to show */
+        line-clamp: 5; 
+        -webkit-box-orient: vertical;
+        user-select: text; 
+    }
+    #Note-Created-Time{
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        font-size: 12px;
+        color: rgb(31, 31, 31);
+        margin: 0 4px;
+        display: flex;
+        justify-content: space-between;
+        // width: 90%;
+
+        #Bookmark-Icon{
+            padding-left: 12px;
+            color:rgb(255, 200, 49);
+            font-size: 16px;
+        }
+    }
+    &:hover{
+        transform: scale(1.05);
+        transition-duration: 300ms;
+        cursor: context-menu;
+    }
+}
+
+@media screen and (min-width:481px)  and (max-width:768px) {
+    // #Note-Card{
+    //     width: 40%;
+    // }
+}
+
+@media screen and (min-width:769px)  and (max-width:1024px) {
+    // #Note-Card{
+    //     width: 40%;
+    // }
+}
+
+@media screen and (min-width:1025px)  {
+    // #Note-Card{
+    //     width: 28%;
+    // }
+}

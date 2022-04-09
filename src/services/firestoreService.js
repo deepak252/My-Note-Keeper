@@ -38,6 +38,16 @@ class FirestoreService{
         }
     }
 
+    static updateNote = async (note) =>{  
+        try{
+            const docRef = doc(db,"notes",note.id);
+            updateDoc(docRef,note);
+            console.log(`Note updated successfully : ${docRef.id}`)
+        }catch(e){
+            console.log(`update note error : ${e}`);
+        }
+    }
+
     static fetchNotes = async () =>{  
         try{
             const notesCollectionRef = collection(db,"notes");
@@ -97,27 +107,38 @@ class FirestoreService{
         }
     }
 
-    static markNoteAsBookmark=async({isBookmarked,noteId})=>{
+
+    static bookmarkNote=async({isBookmarked,noteId})=>{
         try{
             const noteDocRef = doc(db,"notes",noteId);
             await updateDoc(noteDocRef,{
                 bookmarked : isBookmarked,
             })
-            console.log("Note marked as bookmarked successfully");
+            console.log("Bookmarks updated successfully");
         }catch(e){
-            console.log("markNoteAsBookmark error : ",e);
+            console.log("bookmarkNote error : ",e);
         }
     }
 
-    static markNoteAsDelete = async({isDeleted,noteId})=>{
+    static trashNote = async({isDeleted,noteId})=>{
         try{
             const noteDocRef = doc(db,"notes",noteId);
             await updateDoc(noteDocRef,{
                 deleted : isDeleted
             })
-            console.log("Note marked as deleted successfully");
+            console.log("trash updated successfully");
         }catch(e){
-            console.log("markNoteAsDelete error : ",e);
+            console.log("trashNote error : ",e);
+        }
+    }
+
+    static deleteNote = async({noteId})=>{
+        try{
+            const noteDocRef = doc(db,"notes",noteId);
+            await deleteDoc(noteDocRef)
+            console.log("note deleted successfully");
+        }catch(e){
+            console.log("deleteNote error : ",e);
         }
     }
 

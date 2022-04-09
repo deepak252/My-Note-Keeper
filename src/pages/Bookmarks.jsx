@@ -1,11 +1,11 @@
 import React from 'react';
 import "./Bookmarks.scss"
-import { NoteCard } from '../components/noteCard/NoteCard.jsx';
 import FirestoreService from '../services/firestoreService';
 import { useEffect, useState} from 'react';
 import { CreateNoteModal } from '../components/createNoteModal/CreateNoteModal';
 import Note from '../models/Note';
 import { FaPlus } from 'react-icons/fa';
+import { NoteCardBookmark } from '../components/noteCard/NoteCardBookmark';
 
 
 const Bookmark = () => {
@@ -40,7 +40,7 @@ const Bookmark = () => {
             <div className="Notes-Container">
                 {
                     notes.map((note)=>{
-                        return <NoteCard note={note} key={note.id} />
+                        return <NoteCardBookmark note={note} key={note.id} />
                         
                     })
                 }
