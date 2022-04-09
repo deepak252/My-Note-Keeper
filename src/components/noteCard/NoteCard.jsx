@@ -1,7 +1,7 @@
 import React from 'react';
 import "./NoteCard.scss";
 import { FaEllipsisV, FaBookmark } from 'react-icons/fa';
-import FirestoreService from '../../services/FirestoreService';
+import FirestoreService from '../../services/firestoreService';
 
 export const NoteCard = ({note}) => {
     return (

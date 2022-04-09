@@ -2,7 +2,7 @@ import React from 'react'
 import "./CreateNoteModal.scss";
 import {FaTimes} from "react-icons/fa";
 import {useState} from "react";
-import FirestoreService from '../../services/FirestoreService';
+import FirestoreService from '../../services/firestoreService';
 
 export const CreateNoteModal = ({setModalVisibility}) => {
 

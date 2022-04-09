@@ -14,7 +14,7 @@
         position: fixed;
         display: flex;
         align-items: center;
-        background-color: var(--sidebarColorLight);
+        background-color: var(--Color1);
         padding: 4px 10px;
 
         width: 100%;
@@ -48,20 +48,20 @@
         width: 250px;
         height: 100vh;
         float: left;
-        background-color: var(--sidebarColorLight);
+        background-color: var(--Color1);
         position: fixed;
         text-align: center;
 
         &.Show-Sidebar{
             max-width: 80vw;
             visibility: visible;
-            transition: width 0.2s ease-in;
+            transition: all 0.2s ease-in;
             
         }
         &.Hide-Sidebar{
             width: 0;
             visibility: hidden;
-            transition: width 0.2s ease-in;
+            transition: all 0.2s ease-in;
         }
 
         h1{
@@ -112,7 +112,7 @@
         width: 50px;
         border-radius: 50%;
         border: none;
-        box-shadow: 0px 0px 14px 2px var(--sidebarColorLight);
+        box-shadow: 0px 0px 14px 2px var(--Color1);
     
         &:hover{
             cursor: pointer;

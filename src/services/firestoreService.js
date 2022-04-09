@@ -8,7 +8,7 @@ import {
 
 } from "firebase/firestore";
 import Note from "../models/Note";
-/**Class for firebase CRUD operations.*/
+/**Firebase firestore CRUD operations for Notes.*/
 class FirestoreService{
     // note : type(Note)
     static addNote = async (note) =>{  

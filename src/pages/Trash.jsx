@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Trash.scss"
 import { NoteCard } from '../components/noteCard/NoteCard.jsx';
-import FirestoreService from '../services/FirestoreService';
+import FirestoreService from '../services/firestoreService';
 import { useEffect, useState} from 'react';
 import { CreateNoteModal } from '../components/createNoteModal/CreateNoteModal';
 import Note from '../models/Note';

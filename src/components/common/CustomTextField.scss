@@ -1,0 +1,14 @@
+.Custom-Text-Field{
+    margin: 10px 0;
+    padding: 12px;
+    letter-spacing: 1.1px;
+    font-size: 16px;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid gray;
+    
+    &:focus{
+        border: 3px solid var(--Color1);;
+    }
+
+}

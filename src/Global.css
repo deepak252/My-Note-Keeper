@@ -1,8 +1,6 @@
 :root{
     --bgColor: #F0F0F0;
-    --color1 : yellow;
-    --color2 : red;
-    --sidebarColorLight : rgb(64, 69, 175);
+    --Color1 : rgb(64, 69, 175);
     --sidebarColorDark : rgb(11, 14, 23);
     --sidebarColorDark2 : rgb(21, 29, 43);
     --noteCardColor : white;

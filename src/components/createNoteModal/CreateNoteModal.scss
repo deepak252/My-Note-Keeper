@@ -67,7 +67,7 @@
             border: 1px solid gray;
             
             &:focus{
-                border: 3px solid var(--sidebarColorLight);;
+                border: 3px solid var(--Color1);;
                 font-weight: bold;
             }
 
@@ -84,7 +84,7 @@
             outline: none;
             border: 1px solid gray;
             &:focus{
-                border: 3px solid var(--sidebarColorLight);;
+                border: 3px solid var(--Color1);;
             }
 
             &::-webkit-scrollbar {
@@ -105,7 +105,7 @@
             padding: 20px;
             color: white;
             border: none;
-            background-color: var(--sidebarColorLight);
+            background-color: var(--Color1);
             border-radius: 8px;
             font-weight: bold;
             letter-spacing: 1.1px;

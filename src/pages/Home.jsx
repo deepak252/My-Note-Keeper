@@ -1,12 +1,16 @@
 import React from 'react';
 import "./Home.scss"
 import { NoteCard } from '../components/noteCard/NoteCard.jsx';
-import FirestoreService from '../services/FirestoreService';
+import FirestoreService from '../services/firestoreService';
 import { useEffect, useState} from 'react';
 import { CreateNoteModal } from '../components/createNoteModal/CreateNoteModal';
 import Note from '../models/Note';
-import { FaPlus } from 'react-icons/fa';
-
+import { FaPlus} from 'react-icons/fa';
+import {useNavigate} from "react-router";
+import {useAuthState} from "react-firebase-hooks/auth";
+import { auth } from '../firebase';
+import { getUserData } from '../services/firebaseAuthService';
+import BtnLogOut from '../components/common/BtnLogOut';
 // import { Timestamp } from '@firebase/firestore';
 
 
@@ -14,6 +18,26 @@ const Home = () => {
 
     const [notes, setNotes] = useState([]);
     const [createNoteModalVisibility, setCreateNoteModalVisibility] = useState(false);
+    const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState({});
+    const [user,loadingAuthState, error] = useAuthState(auth);
+    const [isLoading, setLoading] = useState(false);
+  
+    useEffect(async () => {
+        setLoading(true);
+        console.log("Current user = ",user);
+        console.log("loadingAuthState = ", loadingAuthState);
+        if (loadingAuthState) return;
+        if (!user){
+            console.log("User not signed in");
+            return navigate("/signin");
+        }
+        
+        const userData = await getUserData(user.uid);
+        setUserInfo(userData);
+        setLoading(false);
+  
+    }, [user, loadingAuthState]);
 
     useEffect(()=>{
         // setNotes([
@@ -48,7 +72,10 @@ const Home = () => {
     
     return (
         <div id="Home">
-            <h1 className="Heading">Your Notes</h1>
+            <div className="Top">
+                <h1 className="Heading">Your Notes</h1>
+                <BtnLogOut />
+            </div>
             {
                 createNoteModalVisibility&&
                 <CreateNoteModal setModalVisibility={setCreateNoteModalVisibility}/>
