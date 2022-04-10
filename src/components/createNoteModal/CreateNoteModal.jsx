@@ -3,16 +3,16 @@ import "./CreateNoteModal.scss";
 import {FaTimes} from "react-icons/fa";
 import {useState} from "react";
 import FirestoreService from '../../services/firestoreService';
-
+import {useSelector} from "react-redux";
 export const CreateNoteModal = ({setModalVisibility}) => {
-
+    const userId = useSelector(state=>state.userId);
     const [note,setNote] = useState({
         title: "",
         description: ""
     });
     
     const createNewNote = async () =>{
-        FirestoreService.addNote(note);
+        FirestoreService.addNote(note, userId);
         setModalVisibility(false);
         
     }

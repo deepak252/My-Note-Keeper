@@ -3,14 +3,15 @@ import "./EditNoteModal.scss";
 import {FaTimes} from "react-icons/fa";
 import {useState} from "react";
 import FirestoreService from '../../services/firestoreService';
+import {useSelector} from "react-redux";
 
 export const EditNoteModal = ({setModalVisibility, note}) => {
 
     const [updatedNote,setNote] = useState(note);
-    console.log(updatedNote);
+    const userId = useSelector(state=>state.userId);
     // Updating Note
     const updateNote = async () =>{
-        await FirestoreService.updateNote(updatedNote);
+        await FirestoreService.updateNote(updatedNote, userId);
         setModalVisibility(false);
         
     }

@@ -1,4 +1,4 @@
-import {db} from "../firebase";
+import {db,auth} from "../firebase";
 import {
     collection, doc, 
     setDoc, addDoc, updateDoc, deleteDoc, 
@@ -10,10 +10,11 @@ import {
 import Note from "../models/Note";
 /**Firebase firestore CRUD operations for Notes.*/
 class FirestoreService{
+    
     // note : type(Note)
-    static addNote = async (note) =>{  
+    static addNote = async (note, userId) =>{  
         try{
-            const notesCollectionRef = collection(db,"notes");
+            const notesCollectionRef = collection(db,`users/${userId}/notes`);
             /*** Method 1  ***/
             // const docRef = await addDoc(notesCollectionRef,note.toJson());
             // console.log(`Note added successfully : ${docRef.id}`)
@@ -38,9 +39,9 @@ class FirestoreService{
         }
     }
 
-    static updateNote = async (note) =>{  
+    static updateNote = async (note, userId) =>{  
         try{
-            const docRef = doc(db,"notes",note.id);
+            const docRef = doc(db,`users/${userId}/notes`,note.id);
             updateDoc(docRef,note);
             console.log(`Note updated successfully : ${docRef.id}`)
         }catch(e){
@@ -48,9 +49,9 @@ class FirestoreService{
         }
     }
 
-    static fetchNotes = async () =>{  
+    static fetchNotes = async (userId) =>{  
         try{
-            const notesCollectionRef = collection(db,"notes");
+            const notesCollectionRef = collection(db,`users/${userId}/notes`);
             return new Promise(async (resolve,reject)=>{
 
                 const q = query(notesCollectionRef,orderBy("timeStamp","desc"))
@@ -73,8 +74,9 @@ class FirestoreService{
         }
     }
     
-    static streamNotes=async(callbackFunxn,onError)=>{
-        const notesCollectionRef = collection(db,"notes");
+    static streamNotes=async(callbackFunxn,onError, userId)=>{
+        console.log("USER ID ", userId);
+        const notesCollectionRef = collection(db,`users/${userId}/notes`);
         var q=query(notesCollectionRef,orderBy("deleted"),orderBy("timeStamp","desc"),where("deleted", "!=", true), );
         // var q=query(notesCollectionRef,orderBy("timeStamp","desc"),where("deleted", "==", true), );
         // var q=query(notesCollectionRef,orderBy("timeStamp","desc") );
@@ -83,34 +85,34 @@ class FirestoreService{
         return unsubsribe;
     }
 
-    static streamBookmarkedNotes=async(callbackFunxn,onError)=>{
-        const notesCollectionRef = collection(db,"notes");
+    static streamBookmarkedNotes=async(callbackFunxn,onError, userId)=>{
+        const notesCollectionRef = collection(db,`users/${userId}/notes`);
         // var q=query(notesCollectionRef,orderBy("bookmarked"),orderBy("timeStamp","desc"),where("bookmarked", "==", "true"), );
         var q=query(notesCollectionRef,orderBy("timeStamp","desc"),where("bookmarked", "==", true), );
         const unsubsribe = onSnapshot(q,callbackFunxn, onError)
         return unsubsribe;
     }
-    static streamDeletedNotes=async(callbackFunxn,onError)=>{
-        const notesCollectionRef = collection(db,"notes");
+    static streamDeletedNotes=async(callbackFunxn,onError, userId)=>{
+        const notesCollectionRef = collection(db,`users/${userId}/notes`);
         var q=query(notesCollectionRef,orderBy("timeStamp","desc"),where("deleted", "==", true), );
         const unsubsribe = onSnapshot(q,callbackFunxn, onError)
         return unsubsribe;
     }
 
-    static deleteNote=async(noteId)=>{
-        try{
-            const noteDocRef = doc(db,"notes",noteId);
-            await deleteDoc(noteDocRef);
-            console.log("Note deleted successfully");
-        }catch(e){
-            console.log("Delete Note error : ",e);
-        }
-    }
+    // static deleteNote=async(noteId, userId)=>{
+    //     try{
+    //         const noteDocRef = doc(db,`users/${userId}/notes`,noteId);
+    //         await deleteDoc(noteDocRef);
+    //         console.log("Note deleted successfully");
+    //     }catch(e){
+    //         console.log("Delete Note error : ",e);
+    //     }
+    // }
 
 
-    static bookmarkNote=async({isBookmarked,noteId})=>{
+    static bookmarkNote=async({isBookmarked,noteId, userId})=>{
         try{
-            const noteDocRef = doc(db,"notes",noteId);
+            const noteDocRef = doc(db,`users/${userId}/notes`,noteId);
             await updateDoc(noteDocRef,{
                 bookmarked : isBookmarked,
             })
@@ -120,9 +122,9 @@ class FirestoreService{
         }
     }
 
-    static trashNote = async({isDeleted,noteId})=>{
+    static trashNote = async({isDeleted,noteId, userId})=>{
         try{
-            const noteDocRef = doc(db,"notes",noteId);
+            const noteDocRef = doc(db,`users/${userId}/notes`,noteId);
             await updateDoc(noteDocRef,{
                 deleted : isDeleted
             })
@@ -132,9 +134,9 @@ class FirestoreService{
         }
     }
 
-    static deleteNote = async({noteId})=>{
+    static deleteNote = async({noteId, userId})=>{
         try{
-            const noteDocRef = doc(db,"notes",noteId);
+            const noteDocRef = doc(db,`users/${userId}/notes`,noteId);
             await deleteDoc(noteDocRef)
             console.log("note deleted successfully");
         }catch(e){

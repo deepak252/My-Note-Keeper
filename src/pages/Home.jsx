@@ -12,6 +12,7 @@ import { auth } from '../firebase';
 import { getUserData } from '../services/firebaseAuthService';
 import BtnLogOut from '../components/common/BtnLogOut';
 // import { Timestamp } from '@firebase/firestore';
+import {useSelector} from "react-redux";
 
 
 const Home = () => {
@@ -23,6 +24,8 @@ const Home = () => {
     const [userInfo, setUserInfo] = useState({});
     const [user,loadingAuthState, error] = useAuthState(auth);
     const [isLoading, setLoading] = useState(false);
+    const userId = useSelector(state=>state.userId);
+
   
     useEffect(async () => {
         setLoading(true);
@@ -63,14 +66,14 @@ const Home = () => {
         },
         (error)=>{
             console.log("streamNotes error : ", error);
-        });
+        }, userId);
 
         // const tempNotes = await FirestoreService.fetchNotes();
         // console.log("fetched notes : ",tempNotes);
         // setNotes(tempNotes);
         
         return unsubscribe;
-    },[])
+    },[userId])
     
     return (
         <div id="Home">

@@ -4,9 +4,12 @@ import { FaEllipsisV, FaBookmark } from 'react-icons/fa';
 import FirestoreService from '../../services/firestoreService';
 import {  useState} from 'react';
 import { EditNoteModal } from '../editNoteModal/EditNoteModal';
+import {useSelector} from "react-redux";
 
 export const NoteCardHome = ({note}) => {
     const [editNoteModalVisibility, setEditNoteModalVisibility] = useState(false);
+    const userId = useSelector(state=>state.userId);
+
     
     return (
         <>
@@ -20,10 +23,10 @@ export const NoteCardHome = ({note}) => {
                 < FaEllipsisV id="Dropdown-Icon"  size="18"/>
                 <div id="Dropdown-Options">
                     <button onClick={()=>{setEditNoteModalVisibility(true)}} className="Dropdown-Btn">Edit</button>
-                    <button onClick={()=>FirestoreService.bookmarkNote({noteId: note?.id, isBookmarked : !note.bookmarked})} className="Dropdown-Btn">
+                    <button onClick={()=>FirestoreService.bookmarkNote({noteId: note?.id, isBookmarked : !note.bookmarked, userId : userId})} className="Dropdown-Btn">
                         {note.bookmarked ? "Remove From Bookmark" : "Bookmark"}
                     </button>
-                    <button onClick={()=>FirestoreService.trashNote({noteId: note?.id, isDeleted : true})} className="Dropdown-Btn">Delete</button>
+                    <button onClick={()=>FirestoreService.trashNote({noteId: note?.id, isDeleted : true, userId : userId})} className="Dropdown-Btn">Delete</button>
                 </div>
             </div>
             <p id="Note-Description">

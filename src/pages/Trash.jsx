@@ -6,12 +6,14 @@ import { CreateNoteModal } from '../components/createNoteModal/CreateNoteModal';
 import Note from '../models/Note';
 import { FaPlus } from 'react-icons/fa';
 import { NoteCardTrash } from '../components/noteCard/NoteCardTrash';
+import {useSelector} from "react-redux";
 
 
 const Trash = () => {
 
     const [notes, setNotes] = useState([]);
     const [createNoteModalVisibility, setCreateNoteModalVisibility] = useState(false);
+    const userId = useSelector(state=>state.userId);
 
     useEffect(()=>{
 
@@ -26,10 +28,10 @@ const Trash = () => {
         },
         (error)=>{
             console.log("streamNotes error : ", error);
-        });
+        },userId);
 
         return unsubscribe;
-    },[])
+    },[userId])
     
     return (
         <div id="Trash">

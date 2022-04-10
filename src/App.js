@@ -17,6 +17,7 @@ import {
 } from 'react-router-dom';
 import  SignIn  from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import { currentUserAction } from './state/actionCreators/currentUserAction';
 
 
 function App() {
@@ -24,7 +25,6 @@ function App() {
   const [userInfo, setUserInfo] = useState({});
   const [user,loadingAuthState, error] = useAuthState(auth);
   const [isLoading, setLoading] = useState(false);
-  const signedIn = true;
 
   useEffect(()=>{
     const changeWidth = () => {
@@ -48,6 +48,7 @@ function App() {
           return;
       }
       const userData = await getUserData(user.uid);
+      dispatch(currentUserAction(user.uid));
       setUserInfo(userData);
       setLoading(false);
 
