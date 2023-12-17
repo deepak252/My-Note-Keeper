@@ -78,11 +78,6 @@ const Home = () => {
         };
     },[userId])
 
-    const fetchUserData = async () =>{
-        const userData = await getUserData(user.uid);
-        setUserInfo(userData);
-        setLoading(false);
-    }
     
     return (
         <div id="Home">

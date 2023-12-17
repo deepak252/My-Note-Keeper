@@ -54,13 +54,6 @@ function App() {
       }).finally(()=>setLoading(false));
   }, [user, loadingAuthState]);
 
-  const fetchUserData = async () =>{
-    const userData = await getUserData(user.uid);
-    dispatch(currentUserAction(user.uid));
-    setUserInfo(userData);
-    setLoading(false);
-  }
-
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
