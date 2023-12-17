@@ -38,7 +38,7 @@ function App() {
     }
   },[])
 
-  useEffect(async () => {
+  useEffect(() => {
       setLoading(true);
       console.log("Current user = ",user);
       console.log("loadingAuthState = ", loadingAuthState);
@@ -47,12 +47,19 @@ function App() {
           console.log("User not signed in");
           return;
       }
-      const userData = await getUserData(user.uid);
-      dispatch(currentUserAction(user.uid));
-      setUserInfo(userData);
-      setLoading(false);
-
+      // fetchUserData();
+      getUserData(user.uid).then((userData)=>{
+          dispatch(currentUserAction(user.uid));
+          setUserInfo(userData);
+      }).finally(()=>setLoading(false));
   }, [user, loadingAuthState]);
+
+  const fetchUserData = async () =>{
+    const userData = await getUserData(user.uid);
+    dispatch(currentUserAction(user.uid));
+    setUserInfo(userData);
+    setLoading(false);
+  }
 
   return (
     <Router basename={process.env.PUBLIC_URL}>

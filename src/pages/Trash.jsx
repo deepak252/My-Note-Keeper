@@ -30,7 +30,11 @@ const Trash = () => {
             console.log("streamNotes error : ", error);
         },userId);
 
-        return unsubscribe;
+        return ()=>{
+            if (typeof unsubscribe === "function") {
+                unsubscribe();
+            }
+        };
     },[userId])
     
     return (

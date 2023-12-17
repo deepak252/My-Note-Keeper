@@ -27,7 +27,7 @@ const Home = () => {
     const userId = useSelector(state=>state.userId);
 
   
-    useEffect(async () => {
+    useEffect(() => {
         setLoading(true);
         console.log("Current user = ",user);
         console.log("loadingAuthState = ", loadingAuthState);
@@ -36,11 +36,10 @@ const Home = () => {
             console.log("User not signed in");
             return navigate("/signin");
         }
-        
-        const userData = await getUserData(user.uid);
-        setUserInfo(userData);
-        setLoading(false);
-  
+        // fetchUserData();
+        // getUserData(user.uid).then((userData)=>{
+        //     setUserInfo(userData);
+        // }).finally(()=> setLoading(false));
     }, [user, loadingAuthState]);
 
     useEffect(()=>{
@@ -72,8 +71,18 @@ const Home = () => {
         // console.log("fetched notes : ",tempNotes);
         // setNotes(tempNotes);
         
-        return unsubscribe;
+        return ()=>{
+            if (typeof unsubscribe === "function") {
+                unsubscribe();
+            }
+        };
     },[userId])
+
+    const fetchUserData = async () =>{
+        const userData = await getUserData(user.uid);
+        setUserInfo(userData);
+        setLoading(false);
+    }
     
     return (
         <div id="Home">
